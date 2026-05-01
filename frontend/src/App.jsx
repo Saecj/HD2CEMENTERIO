@@ -323,7 +323,7 @@ export default function App() {
     }
   }
 
-
+// se agrega cabecera del sistema
   function dismissNotification(id) {
     if (!id) return
     setNotifications((prev) => prev.filter((n) => n.id !== id))
