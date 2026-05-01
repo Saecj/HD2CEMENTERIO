@@ -19,14 +19,14 @@ function formatDateTime(value) {
 	}
 }
 
-function prettyStatus(status) {
+function prettyStatusStatys(status) {
 	if (!status) return '—'
 	const s = String(status)
 	const map = {
-		pending: 'Pendiente',
-		confirmed: 'Confirmada',
-		cancelled: 'Cancelada',
-		expired: 'Vencida',
+		pending: 'Pendientee',
+		confirmed: 'Confirmadaa',
+		cancelled: 'Canceladaa',
+		expired: 'Vencidaa',
 	}
 	return map[s] || s
 }
