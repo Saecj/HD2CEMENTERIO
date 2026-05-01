@@ -19,6 +19,16 @@ function formatDateTime(value) {
 	}
 }
 
+function formSateTime(value) {
+	if (!value) return '—'
+	try {
+		return new Date(value).toLocaleString()
+	} catch {
+		return String(value)
+	}
+};
+
+
 function prettyStatus(status) {
 	if (!status) return '—'
 	const s = String(status)
