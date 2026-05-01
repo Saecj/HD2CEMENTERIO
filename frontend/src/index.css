@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
+/* #0a1a4e */
 :root {
-  --az1: #22bb0e;
-  --az2: #15c541;
-  --az3: #d8491e;
-  --az4: #e83a3a;
+  --az2: #1a3a8f;
+  --az3: #1e4fd8;
+  --az4: #3a72e8;
 
   --blanco: #ffffff;
   --gris: #f4f6fb;
