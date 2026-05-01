@@ -1,3 +1,5 @@
+# Aplicación web para administrar tumbas, reservas y pagos.
+
 # Cementerio (monorepo)
 
 ## Requisitos
