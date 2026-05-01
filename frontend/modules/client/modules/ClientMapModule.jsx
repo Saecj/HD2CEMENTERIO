@@ -39,6 +39,48 @@ function recordKeyyy(r) {
 	return 'unknown'
 }
 
+// Funcion para la api de googleMaps 2.0
+
+export async function fetchGoogleMapsMock(query) {
+	// 1. Simulamos el retraso de red (ej. 1.2 segundos)
+	const networkDelay = 1200;
+
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			// Caso de prueba para simular un error (opcional)
+			if (!query) {
+				reject(new Error("La consulta de búsqueda no puede estar vacía."));
+				return;
+			}
+
+			// 2. Respuesta simulada con la estructura típica de Google
+			// 2. Respuesta simulada con la estructura típica de Google
+			const mockResponse = {
+				status: "OK", 
+				results: [
+					{
+						formatted_address: `${query}, Junín, Perú`,
+						geometry: {
+							location: {
+								lat: -12.06513,
+								lng: -75.20486
+							},
+							viewport: {
+								northeast: { lat: -12.063, lng: -75.202 },
+								southwest: { lat: -12.067, lng: -75.206 }
+							}
+						},
+						place_id: "ChIJu_MockPlaceId123",
+						types: ["geometry", "point_of_interest"]
+					}
+				]
+			};
+
+			resolve(mockResponse);
+		}, networkDelay);
+	});
+}
+
 
 export function ClientMapModule({ me, selected, onSelect }) {
 	const [loading, setLoading] = useState(false)
