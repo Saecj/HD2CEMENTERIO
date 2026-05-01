@@ -1,85 +1,193 @@
-# Sistema web para gestión de cementerios.
+# 🪦 Sistema Web de Gestión de Cementerios (Monorepo)
 
-# Cementerio (monorepo)
+## 📌 Descripción
 
-## Requisitos
-- Node.js (recomendado LTS)
+Sistema web orientado a la gestión integral de cementerios, permitiendo administrar tumbas, difuntos, reservas, pagos y ubicación mediante geolocalización.
 
-## Instalar dependencias
-Desde la raíz:
+El sistema está diseñado bajo arquitectura cliente-servidor, facilitando la centralización de información y mejorando la experiencia del usuario.
+
+---
+
+## ⚙️ Requisitos
+
+* Node.js (versión LTS recomendada)
+* PostgreSQL
+
+---
+
+## 📦 Instalación
+
+### 1. Instalar dependencias
+
+Desde la raíz del proyecto:
 
 ```bash
 npm run install:all
 ```
 
-## Base de datos (Postgres)
-1) Crea `backend/.env` desde `backend/.env.example` y completa credenciales.
-2) Ejecuta migraciones:
+---
+
+### 2. Configurar base de datos
+
+1. Crear archivo `.env`:
+
+```bash
+backend/.env
+```
+
+2. Basarse en:
+
+```bash
+backend/.env.example
+```
+
+3. Ejecutar migraciones:
 
 ```bash
 npm --prefix backend run db:migrate
 ```
 
-Opcional (recomendado para empezar):
-- (Legacy) Antes se usaba OTP; ahora el flujo principal es por contraseña.
+---
 
-## Desarrollo (frontend + backend)
+## 🚀 Ejecución del sistema
+
 Desde la raíz:
 
 ```bash
 npm run dev
 ```
 
-Si estás dentro de una carpeta específica:
+---
 
-- Dentro de `backend/`:
+### 📍 Servicios
+
+* Frontend: http://localhost:5173
+* Backend: http://localhost:3001
+
+Endpoints útiles:
+
+* Health: http://localhost:3001/health
+* Health DB: http://localhost:3001/api/health/db
+
+---
+
+## 🔐 Autenticación
+
+Endpoints principales:
+
+* Registro:
 
 ```bash
-npm run dev
+POST /api/auth/register
 ```
+
+* Verificación:
 
 ```bash
-npm run start
+POST /api/auth/verify-email
 ```
 
-- Dentro de `frontend/`:
+* Login:
 
 ```bash
-npm run dev
+POST /api/auth/login
 ```
 
-Nota: si ejecutas `npm --prefix backend ...` mientras tu terminal ya está en `backend/`, npm intentará buscar `backend/backend/package.json` y fallará con `ENOENT`.
+* Usuario actual:
 
-- Backend: `http://localhost:3001`
-  - Health: `http://localhost:3001/health`
-  - Health (proxy): `http://localhost:3001/api/health`
-  - Health BD: `http://localhost:3001/api/health/db`
-- Frontend: `http://localhost:5173`
+```bash
+GET /api/auth/me
+```
 
-## Login por correo + contraseña
+---
 
-Requiere aplicar las migraciones:
-- `backend/sql/005_password_auth.sql`
-- `backend/sql/006_email_verification.sql`
+## 🔍 Funcionalidades principales
 
-- `POST /api/auth/register` `{ email, documentId, phone?, password, confirmPassword, acceptTerms }` → crea un registro pendiente y envía código.
-- `POST /api/auth/verify-email` `{ email, code }` → crea la cuenta (verificada) y abre sesión.
-- `POST /api/auth/login` `{ email, password }` → crea sesión (cookie `sid`).
-- `GET /api/auth/me` → devuelve el usuario en sesión.
+✔ Gestión de tumbas
+✔ Registro de difuntos
+✔ Búsqueda de difuntos
+✔ Visualización de ubicación
+✔ Sistema de reservas
+✔ Control de pagos
+✔ Gestión de usuarios
 
-## Búsqueda (MVP)
-- `GET /api/search?q=...` (requiere sesión) → lista difuntos y su tumba/ubicación/estado.
+---
 
-## Carga de datos (MVP, solo API)
-- Admin:
-  - `POST /api/admin/sectors` `{ name }`
-  - `POST /api/admin/graves` `{ code, location_label, grave_type_code }`
-- Admin/Empleado:
-  - `POST /api/employee/burials` `{ firstName, lastName, dateOfDeath?, graveId, burialDate? }`
+## 🧭 Manual de Usuario
 
-## Notas
-- El frontend tiene proxy de desarrollo: las llamadas a `/api/*` se redirigen al backend (`http://localhost:3001`).
+### 🔹 1. Acceso al sistema
 
-## Postgres
-- Crea un archivo `backend/.env` a partir de `backend/.env.example` y completa tus credenciales.
-- El endpoint `GET /api/health/db` hace un `SELECT 1` para validar la conexión.
+El usuario ingresa a la plataforma mediante su correo y contraseña.
+
+### 🔹 2. Búsqueda de difuntos
+
+Se ingresa el nombre del difunto para visualizar su información y ubicación.
+
+### 🔹 3. Visualización del estado
+
+Permite ver:
+
+* Estado de la tumba
+* Estado de la reserva
+* Estado del pago
+
+### 🔹 4. Reservas
+
+El usuario puede seleccionar tumbas disponibles y realizar una reserva.
+
+### 🔹 5. Pagos
+
+Permite registrar y consultar pagos asociados a reservas.
+
+---
+
+## 🏗️ Arquitectura
+
+El sistema sigue el patrón:
+
+* Modelo → lógica y base de datos
+* Vista → interfaz de usuario
+* Controlador → gestión de peticiones
+
+---
+
+## 🗄️ Base de datos
+
+Principales entidades:
+
+* users
+* roles
+* graves
+* deceased
+* reservations
+* payments
+* sectors
+* locations
+
+---
+
+## ⚠️ Notas
+
+* El frontend usa proxy para `/api`
+* Se recomienda conexión estable a internet
+* Endpoint `/api/health/db` valida conexión a PostgreSQL
+
+---
+
+## 💡 Innovación y valor agregado
+
+* Geolocalización de tumbas
+* Centralización de información
+* Reducción del tiempo de búsqueda
+* Escalabilidad del sistema
+* Posible integración futura con:
+
+  * Aplicación móvil
+  * Códigos QR
+  * Notificaciones automáticas
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto desarrollado como parte del curso de Herramientas de Desarrollo – UTP.
