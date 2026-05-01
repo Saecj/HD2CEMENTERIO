@@ -156,7 +156,7 @@ export default function App() {
             title: 'Reserva confirmada',
             message: `Tu reserva${code ? ` ${code}` : ''} fue confirmada. Ya puedes pagar.`,
             action: { label: 'Ir a Pagos', tabId: 'payments' },
-          })
+          });
         }
 
         if (prevGraveStatus !== 'occupied' && curGraveStatus === 'occupied') {
@@ -165,7 +165,7 @@ export default function App() {
             title: 'Entierro registrado',
             message: `${name ? `${name}: ` : ''}la tumba${graveCode ? ` ${graveCode}` : ''} ya figura como ocupada.`,
             action: { label: 'Ver estado', tabId: 'graveStatus' },
-          })
+          });
         }
       }
 
@@ -277,6 +277,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    // Nueva funcion corregido
     // Si se pierde el rol admin, evita quedarse en tab admin.
     if (activeTab === 'admin' && !isStaff) setActiveTab('search')
   }, [activeTab, me?.role])
