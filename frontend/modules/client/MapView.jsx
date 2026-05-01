@@ -30,6 +30,7 @@ export function MapView({ selected, markers = [], onSelect }) {
 	return (
 		<div className="mt-3 space-y-2">
 			{/* Encabezado fuera del mapa */}
+			<div>Cabecera del sistema</div>
 			<div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<div className="ui-card rounded-md p-3 text-left">
 					<div className="ui-kicker">Mapa</div>

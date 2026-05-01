@@ -1,0 +1,459 @@
+@import "tailwindcss";
+
+:root {
+  --az1: #0a1a4e;
+  --az2: #1a3a8f;
+  --az3: #1e4fd8;
+  --az4: #3a72e8;
+
+  --blanco: #ffffff;
+  --gris: #f4f6fb;
+
+  --nav-gradient: linear-gradient(90deg, var(--az1), var(--az2) 55%, var(--az3));
+  --nav-gradient-soft:
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--az1) 86%, transparent),
+      color-mix(in oklab, var(--az2) 86%, transparent) 55%,
+      color-mix(in oklab, var(--az3) 86%, transparent)
+    );
+  --hero-gradient: linear-gradient(135deg, var(--az1) 0%, var(--az2) 50%, var(--az4) 100%);
+  --btn-gradient: linear-gradient(90deg, var(--az2), var(--az3));
+
+  --text: #2a2a2a;
+  --text-h: #111111;
+  --muted: color-mix(in srgb, var(--text) 78%, var(--text-h) 22%);
+  --bg: var(--gris);
+  --surface: var(--blanco);
+  --surface-2: #f0f4ff;
+  --border: rgba(26, 58, 143, 0.13);
+  --hover: rgba(30, 79, 216, 0.08);
+
+  --overlay: rgba(0, 0, 0, 0.45);
+
+  --accent: var(--az3);
+  --on-accent: #ffffff;
+  --accent-bg: rgba(30, 79, 216, 0.14);
+  --accent-border: rgba(30, 79, 216, 0.55);
+
+  --code-bg: var(--surface);
+  --social-bg: rgba(28, 23, 18, 0.7);
+  --shadow:
+    rgba(30, 79, 216, 0.10) 0 0 0 1px,
+    rgba(15, 23, 42, 0.10) 0 12px 24px -12px,
+    rgba(15, 23, 42, 0.08) 0 6px 12px -8px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.12px;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--accent-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--text-h);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 3px;
+}
+
+/* Transiciones suaves globales (hover/focus) */
+:where(a, button, input, select, textarea) {
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease,
+    transform 0.3s ease;
+}
+
+:where(input, select, textarea) {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 180ms ease;
+}
+
+:where(input, select, textarea):focus-visible {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-bg) 70%, transparent);
+}
+
+:where(label):has(input:focus-visible, select:focus-visible, textarea:focus-visible) {
+  color: var(--text-h);
+}
+
+:where(button, a):not(:disabled) {
+  transition: filter 160ms ease, transform 120ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+:where(button, a):not(:disabled):hover {
+  filter: saturate(1.12) brightness(1.04);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+:where(button, a):not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/*
+  Utilidades UI premium/minimal (tokens only)
+  - Se aplican explícitamente vía clases para evitar side-effects.
+*/
+
+.ui-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* --- Reserva tipo “mapa” (sectores + celdas) --- */
+.ui-sector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 8px;
+}
+
+.ui-sector-btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 10px;
+  background: var(--surface);
+  color: var(--text);
+  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.ui-sector-btn:hover {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  transform: translateY(-1px);
+}
+
+.ui-sector-btn[data-active='true'] {
+  background-image: var(--btn-gradient);
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--border));
+  color: var(--on-accent);
+}
+
+.ui-sector-btn__code {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.ui-sector-btn__label {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  opacity: .85;
+}
+
+.ui-grave-grid {
+  display: grid;
+  gap: 4px;
+  justify-content: start;
+  --cell-w: 30px;
+  --cell-h: 24px;
+}
+
+.ui-grave-cell {
+  width: var(--cell-w);
+  height: var(--cell-h);
+  border-radius: 7px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  user-select: none;
+  transition: transform 120ms ease, background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.ui-grave-cell[data-state='available'] {
+  background: color-mix(in oklab, var(--az4) 16%, var(--surface));
+  color: color-mix(in oklab, var(--az2) 90%, var(--text));
+  border-color: color-mix(in oklab, var(--az3) 18%, var(--border));
+  cursor: pointer;
+}
+
+.ui-grave-cell[data-state='available']:hover {
+  background: color-mix(in oklab, var(--az3) 80%, var(--surface));
+  color: var(--on-accent);
+  border-color: color-mix(in oklab, var(--az3) 85%, var(--border));
+  transform: translateY(-1px);
+}
+
+.ui-grave-cell[data-state='pending'] {
+  background: color-mix(in oklab, var(--az4) 22%, var(--surface));
+  color: color-mix(in oklab, var(--az2) 85%, var(--text));
+  border-color: color-mix(in oklab, var(--az4) 45%, var(--border));
+  cursor: not-allowed;
+  opacity: .75;
+}
+
+.ui-grave-cell[data-state='confirmed'] {
+  background: color-mix(in oklab, var(--az3) 85%, var(--surface));
+  color: var(--on-accent);
+  border-color: color-mix(in oklab, var(--az3) 90%, var(--border));
+  cursor: not-allowed;
+  opacity: .85;
+}
+
+.ui-grave-cell[data-state='occupied'] {
+  background: color-mix(in oklab, var(--az1) 92%, var(--surface));
+  color: rgba(255, 255, 255, 0.92);
+  border-color: color-mix(in oklab, var(--az1) 70%, var(--border));
+  cursor: not-allowed;
+}
+
+.ui-grave-cell[data-state='maintenance'] {
+  background: color-mix(in oklab, var(--surface-2) 88%, var(--surface));
+  color: var(--muted);
+  border-color: color-mix(in oklab, var(--border) 75%, transparent);
+  cursor: not-allowed;
+}
+
+.ui-grave-cell[data-selected='true'] {
+  position: relative;
+  z-index: 1;
+  border-color: color-mix(in oklab, var(--az2) 82%, var(--border));
+  outline: 2px solid color-mix(in oklab, var(--az2) 55%, transparent);
+  outline-offset: 0;
+  transform: translateY(-1px);
+}
+
+.ui-grave-legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.ui-grave-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.ui-grave-legend__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+}
+
+.ui-title {
+  color: var(--text-h);
+  letter-spacing: -0.18px;
+}
+
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.ui-card {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.ui-card--soft {
+  background: var(--surface-2);
+}
+
+.ui-card--tight {
+  padding: 12px;
+}
+
+.ui-card:hover {
+  border-color: var(--accent-border);
+  background: var(--surface-2);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.ui-card:active {
+  transform: translateY(0);
+}
+
+/*
+  Estilo premium global (sin tocar componentes):
+  - Aplica a botones/enlaces con clases Tailwind existentes.
+  - Outline: bordes + ring/glow al hover.
+  - Solid (accent): ring + shadow siempre, más glow al hover.
+*/
+
+:where(button, a)[class*="border-[color:var(--border)]"] {
+  box-shadow: none;
+}
+
+:where(button, a)[class*="border-[color:var(--border)]"]:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow);
+}
+
+:where(button, a)[class*="bg-[color:var(--accent)]"] {
+  background-image: var(--btn-gradient);
+  background-color: transparent;
+  box-shadow: var(--shadow);
+}
+
+:where(button, a)[class*="bg-[color:var(--accent)]"]:hover {
+  box-shadow: var(--shadow);
+}
+
+/* Cursor consistente en elementos clicables */
+:where(button, a, [role='button'], input[type='button'], input[type='submit'], input[type='reset']) {
+  cursor: pointer !important;
+}
+
+:where(button:disabled, input:disabled, [aria-disabled='true']) {
+  cursor: not-allowed !important;
+}
+
+/* Tarjeta premium para tumbas (Home) */
+.ui-card--grave {
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--surface) 0%, color-mix(in srgb, var(--surface-2) 60%, var(--surface)) 100%);
+  border-color: color-mix(in srgb, var(--accent-border) 35%, var(--border));
+}
+
+.ui-card--grave::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 4px;
+  background: var(--nav-gradient);
+  opacity: 0.95;
+}
+
+.ui-card--grave:hover {
+  border-color: var(--accent-border);
+}
+
+.theme-dark {
+  --text: #b8c7e6;
+  --text-h: #eef4ff;
+  --muted: color-mix(in srgb, var(--text) 86%, var(--text-h) 14%);
+  --bg: #070b16;
+  --surface: #0b1226;
+  --surface-2: #0a1022;
+  --border: rgba(255, 255, 255, 0.14);
+  --hover: rgba(255, 255, 255, 0.10);
+  --overlay: rgba(7, 11, 22, 0.76);
+
+  --accent: var(--az4);
+  --on-accent: #ffffff;
+  --accent-bg: rgba(58, 114, 232, 0.18);
+  --accent-border: rgba(58, 114, 232, 0.55);
+
+  --shadow:
+    rgba(58, 114, 232, 0.16) 0 0 0 1px,
+    rgba(0, 0, 0, 0.45) 0 18px 40px -24px,
+    rgba(0, 0, 0, 0.28) 0 10px 20px -16px;
+  color-scheme: dark;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
