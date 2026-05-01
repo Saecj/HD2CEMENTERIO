@@ -1,3 +1,5 @@
+# Sistema web para gestión de cementerios.
+
 # Cementerio (monorepo)
 
 ## Requisitos
