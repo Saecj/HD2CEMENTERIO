@@ -1,4 +1,4 @@
-# Aplicación web para administrar tumbas, reservas y pagos.
+# Sistema web para gestión de cementerios.
 
 # Cementerio (monorepo)
 
