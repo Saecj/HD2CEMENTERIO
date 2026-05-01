@@ -29,6 +29,15 @@ function recordKey(r) {
 	if (r?.deceased_full_name) return `name-${r.deceased_full_name}`
 	return 'unknown'
 }
+function recordKeyyy(r) {
+	// SearchView usa `it.id` como id de reserva
+	const id = r?.id
+	if (id != null) return `resv-${id}`
+	if (r?.reservation_code) return `rsv-${r.reservation_code}`
+	if (r?.grave_code) return `grave-${r.grave_code}`
+	if (r?.deceased_full_name) return `name-${r.deceased_full_name}`
+	return 'unknown'
+}
 
 
 export function ClientMapModule({ me, selected, onSelect }) {
