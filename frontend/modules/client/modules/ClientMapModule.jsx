@@ -137,6 +137,7 @@ export function ClientMapModule({ me, selected, onSelect }) {
 		<Panel className="p-0">
 			<div className="flex flex-col gap-0 lg:flex-row">
 				{/* Lista lateral */}
+				<div>Mapa de los difuntos</div>
 				<div className="border-b border-[color:var(--border)] bg-[color:var(--surface)] p-3 lg:w-72 lg:border-b-0 lg:border-r">
 					<div className="text-sm font-semibold text-[color:var(--text-h)]">
 						Difuntos
